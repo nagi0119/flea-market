@@ -1,0 +1,166 @@
+.order-page {
+    background: #fff;
+    padding: 50px 0 80px;
+}
+
+.order-page__inner {
+    width: 82%;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 70px;
+}
+
+
+.order-page__left {
+    min-width: 0;
+}
+
+.order-page__right {
+    width: 100%;
+    max-width: 320px;
+}
+
+.order-item {
+    display: flex;
+    gap: 35px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #333;
+}
+
+.order-item__image {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    background: #ddd;
+}
+
+.order-item__name {
+    font-size: 20px;
+    margin: 0 0 12px;
+}
+
+.order-item__price {
+    font-size: 18px;
+    margin: 0;
+}
+
+.order-section {
+    padding: 25px 35px 35px;
+    border-bottom: 1px solid #333;
+}
+
+.order-section__title {
+    font-size: 15px;
+    margin: 0 0 25px;
+}
+
+.order-section__select {
+    width: 180px;
+    height: 28px;
+    margin-left: 35px;
+}
+
+.order-section__heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-section__link {
+    font-size: 13px;
+    color: #0073cc;
+    text-decoration: none;
+}
+
+.order-address {
+    margin-left: 35px;
+    font-weight: bold;
+    line-height: 1.8;
+}
+
+.order-summary {
+    border: 1px solid #333;
+}
+
+.order-summary__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 25px;
+    font-size: 14px;
+}
+
+.order-summary__row:first-child {
+    border-bottom: 1px solid #333;
+}
+
+.order-button {
+    width: 100%;
+    margin-top: 45px;
+    padding: 12px 0;
+    background: #ff5555;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 1400px) and (max-width: 1540px) {
+    .order-page__inner {
+        width: 82%;
+        max-width: 1250px;
+    }
+
+    .order-form {
+        grid-template-columns: 1fr 340px;
+        gap: 70px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 850px) {
+    .order-page__inner {
+        width: 92%;
+    }
+
+    .order-form {
+        grid-template-columns: minmax(320px, 1fr) 280px;
+        gap: 30px;
+    }
+
+    .order-item {
+        gap: 20px;
+    }
+
+    .order-item__image {
+        width: 110px;
+        height: 110px;
+    }
+
+    .order-item__name {
+        font-size: 18px;
+    }
+
+    .order-item__price {
+        font-size: 16px;
+    }
+
+    .order-section {
+        padding: 20px;
+    }
+
+    .order-section__select {
+        width: 150px;
+        margin-left: 20px;
+    }
+
+    .order-address {
+        margin-left: 20px;
+        font-size: 14px;
+    }
+
+    .order-summary__row {
+        padding: 22px 18px;
+        font-size: 13px;
+    }
+}

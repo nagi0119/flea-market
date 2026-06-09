@@ -1,0 +1,83 @@
+.profile-page {
+    background: #f2f2f2;
+    min-height: calc(100vh - 60px);
+    padding-top: 60px;
+}
+
+.profile-page__title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.profile-form {
+    width: 400px;
+    margin: 0 auto;
+}
+
+/* 画像エリア */
+.profile-form__image-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.profile-form__image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    object-fit: cover;
+}
+
+.profile-form__image-button {
+    font-size: 12px;
+    color: #ff5a5a;
+    border: 1px solid #ff5a5a;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 入力欄 */
+.profile-form__group {
+    margin-bottom: 25px;
+}
+
+.profile-form__label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.profile-form__input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.profile-form__button {
+    width: 100%;
+    height: 50px;
+    margin-top: 30px;
+    background: #ff5a5a;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 850px) {
+    .profile-form {
+        width: 90%;
+    }
+
+    .profile-page {
+        padding-top: 40px;
+    }
+}
