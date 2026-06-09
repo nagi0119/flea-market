@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
             おすすめ
         </a>
 
-        <a href="/?tab=mylist"
+        <a href="{{ url('/?tab=mylist&keyword=' . request('keyword')) }}"
             class="item-tabs__link {{ $isMylist ? 'item-tabs__link--active' : '' }}">
             マイリスト
         </a>
