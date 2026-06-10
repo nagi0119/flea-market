@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Order;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use App\Models\Profile;
 
 class OrderController extends Controller
 {
@@ -64,6 +65,19 @@ class OrderController extends Controller
             'item',
             'profile'
         ));
+    }
+    public function updateAddress($itemId)
+    {
+        Profile::updateOrCreate(
+            ['user_id' => auth()->id()],
+            [
+                'postal_code' => request('postal_code'),
+                'address' => request('address'),
+                'building_name' => request('building'),
+            ]
+        );
+
+        return redirect('/item/' . $itemId . '/order');
     }
     public function success($itemId)
     {
