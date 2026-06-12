@@ -108,7 +108,7 @@ php artisan storage:link
 docker-compose exec php php artisan test
 ```
 実行結果
-- 40 tests passed
+- 42 tests passed
 
 ## メール認証
 
