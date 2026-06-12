@@ -19,10 +19,12 @@ git clone git@github.com:nagi0119/flea-market.git
 ```bash
 docker-compose up -d --build
 ```
-mysql:
-・Nginx：nginx:1.21.1
-・MySQL：mysql:8.0.26
-・phpMyAdmin：phpmyadmin/phpmyadmin
+
+### 使用コンテナ
+
+- Nginx: nginx:1.21.1
+- MySQL: mysql:8.0.26
+- phpMyAdmin: phpmyadmin/phpmyadmin
 
 ### Laravel環境構築
 
@@ -30,7 +32,7 @@ mysql:
 ```bash
 docker-compose exec php bash
 ```
-2. composerをinstall
+2. composerをインストール
 ```bash
 composer install
 ```
