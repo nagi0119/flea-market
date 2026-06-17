@@ -11,12 +11,12 @@
         メール認証を完了してください。
     </p>
 
-    <form method="POST" action="/email/verification-notification">
-        @csrf
-        <button type="submit" class="verify-email__button">
-            認証はこちらから
-        </button>
-    </form>
+    <a
+        href="http://localhost:8025"
+        target="_blank"
+        class="verify-email__button">
+        認証はこちらから
+    </a>
 
     <a href="#" class="verify-email__link">
         認証メールを再送する

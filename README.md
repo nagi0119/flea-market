@@ -23,7 +23,7 @@ Docker Desktop がインストールされていない場合は、公式サイ�
 git clone git@github.com:nagi0119/flea-market.git
 cd flea-market
 ``` 
-2. DockerDesktopアプリを立ち上げてください。
+2. Docker Desktopアプリを立ち上げてください。
 
 Docker Desktop を起動し、正常に立ち上がっていることを確認してください。
 
@@ -102,7 +102,7 @@ php artisan storage:link
 
 ## URL
 
-- 環境開発: http://localhost
+- 開発環境: http://localhost
 - phpMyAdmin: http://localhost:8080/
 - MailHog: http://localhost:8025
 
@@ -158,12 +158,12 @@ CREATE DATABASE demo_test;
 ```
 
 作成できたらMySQLから抜けてください。
-```sql
+```bash
 exit;
 ```
 
 コンテナからも抜けてください。
-```sql
+```bash
 exit;
 ```
 
@@ -227,7 +227,7 @@ STRIPE_SECRET=your_stripe_secret
 
 ### Permission denied エラーが発生する場合
 
--以下のようなエラーが表示された場合
+- 以下のようなエラーが表示された場合
 
 The stream or file "/var/www/storage/logs/laravel.log"
 could not be opened in append mode:
@@ -244,3 +244,13 @@ sudo chmod -R 777 src/*
 ```bash
 docker-compose up -d
 ```
+
+## 補足
+
+以下の実装については課題要件には記載がありませんでしたが、コーチに確認の上で実装しています。
+
+- 初回ログイン時のプロフィール設定画面のバリデーションエラーメッセージは「○○は必須です」と表示
+- 自分が出品した商品の詳細画面では購入ボタンを非表示
+- 購入済み商品の詳細画面では購入ボタンを非表示
+- エラーメッセージの文字色は赤色で表示
+- ダミー商品のカテゴリは任意のカテゴリを設定

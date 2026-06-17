@@ -56,11 +56,11 @@
                 </div>
 
                 <p class="order-address">
-                    〒 {{ $profile->postal_code }}<br>
+                    〒 {{ $orderAddress['postal_code'] }}<br>
 
-                    {{ $profile->address }}
+                    {{ $orderAddress['address'] }}
 
-                    {{ $profile->building_name }}
+                    {{ $orderAddress['building_name'] }}
                 </p>
             </section>
         </div>

@@ -6,7 +6,6 @@ use App\Models\Item;
 use App\Models\Order;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
-use App\Models\Profile;
 
 class OrderController extends Controller
 {
@@ -19,7 +18,13 @@ class OrderController extends Controller
             return redirect('/mypage/profile');
         }
 
-        return view('orders.create', compact('item', 'profile'));
+        $orderAddress = session('order_address_' . $itemId, [
+            'postal_code' => $profile->postal_code,
+            'address' => $profile->address,
+            'building_name' => $profile->building_name,
+        ]);
+
+        return view('orders.create', compact('item', 'profile', 'orderAddress'));
     }
 
     public function store($itemId)
@@ -68,14 +73,13 @@ class OrderController extends Controller
     }
     public function updateAddress($itemId)
     {
-        Profile::updateOrCreate(
-            ['user_id' => auth()->id()],
-            [
+        session([
+            'order_address_' . $itemId => [
                 'postal_code' => request('postal_code'),
                 'address' => request('address'),
-                'building_name' => request('building'),
+                'building_name' => request('building_name'),
             ]
-        );
+        ]);
 
         return redirect('/item/' . $itemId . '/order');
     }

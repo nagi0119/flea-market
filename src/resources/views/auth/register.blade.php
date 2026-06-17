@@ -37,7 +37,7 @@
             </div>
 
             <div class="register-form__group">
-                <label>確認用パスワード</label>
+                <label class="register-form__label">確認用パスワード</label>
                 <input class="register-form__input" type="password" name="password_confirmation">
 
                 @error('password_confirmation')
@@ -47,7 +47,6 @@
 
             <button class="register-form__button" type="submit">登録する</button>
         </form>
-
 
         <a href="/login" class="register-card__login-link">ログインはこちら</a>
     </div>

@@ -48,7 +48,7 @@ class ItemsTableSeeder extends Seeder
                 'description' => 'クラシックなデザインの革靴',
                 'price' => 4000,
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
-                'is_sold' => true,
+                'is_sold' => false,
             ],
             [
                 'user_id' => 2,

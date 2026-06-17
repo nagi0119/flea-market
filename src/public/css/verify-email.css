@@ -13,7 +13,7 @@
     margin-bottom: 50px;
 }
 
-.verify-email form {
+.verify-email__button {
     margin-bottom: 35px;
 }
 
@@ -26,6 +26,12 @@
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #000;
 }
 
 .verify-email__link {
