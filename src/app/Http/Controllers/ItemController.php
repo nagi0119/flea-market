@@ -54,10 +54,8 @@ class ItemController extends Controller
 
     public function show($itemId)
     {
-        // dd($item);
         $item = Item::with(['categories', 'comments.user'])
             ->findOrFail($itemId);
-        // dd($item);
         $isLiked = false;
 
         if (auth()->check()) {

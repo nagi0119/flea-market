@@ -6,6 +6,9 @@ use App\Models\Item;
 use App\Models\Order;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use App\Models\OrderAddress;
+use App\Http\Requests\PurchaseRequest;
+use App\Http\Requests\AddressRequest;
 
 class OrderController extends Controller
 {
@@ -27,13 +30,13 @@ class OrderController extends Controller
         return view('orders.create', compact('item', 'profile', 'orderAddress'));
     }
 
-    public function store($itemId)
+    public function store(PurchaseRequest $request, $itemId)
     {
         $item = Item::findOrFail($itemId);
 
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        $paymentMethod = request('payment_method');
+        $paymentMethod = $request->payment_method;
 
         if ($paymentMethod == 1) {
             $stripePaymentMethod = 'konbini';
@@ -71,29 +74,51 @@ class OrderController extends Controller
             'profile'
         ));
     }
-    public function updateAddress($itemId)
+
+    public function updateAddress(AddressRequest $request, $itemId)
     {
+        auth()->user()->profile()->updateOrCreate(
+            ['user_id' => auth()->id()],
+            [
+                'postal_code' => $request->postal_code,
+                'address' => $request->address,
+                'building_name' => $request->building_name,
+            ]
+        );
+
         session([
             'order_address_' . $itemId => [
-                'postal_code' => request('postal_code'),
-                'address' => request('address'),
-                'building_name' => request('building_name'),
+                'postal_code' => $request->postal_code,
+                'address' => $request->address,
+                'building_name' => $request->building_name,
             ]
         ]);
 
         return redirect('/item/' . $itemId . '/order');
     }
+
     public function success($itemId)
     {
         $item = Item::findOrFail($itemId);
 
-        Order::create([
+        $order = Order::create([
             'buyer_user_id' => auth()->id(),
             'item_id' => $item->id,
             'payment_method' => request('payment_method'),
             'order_status' => 1,
             'ordered_at' => now(),
         ]);
+
+        $orderAddress = session('order_address_' . $itemId);
+
+        if ($orderAddress) {
+            OrderAddress::create([
+                'order_id' => $order->id,
+                'postal_code' => $orderAddress['postal_code'],
+                'address' => $orderAddress['address'],
+                'building_name' => $orderAddress['building_name'],
+            ]);
+        }
 
         $item->update([
             'is_sold' => true,

@@ -26,7 +26,7 @@ class AddressTest extends TestCase
         $this->post('/order/address/1', [
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
-            'building' => 'テストビル',
+            'building_name' => 'テストビル',
         ]);
 
         $this->assertDatabaseHas('profiles', [
@@ -65,7 +65,7 @@ class AddressTest extends TestCase
         $this->post('/order/address/' . $item->id, [
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
-            'building' => 'テストビル',
+            'building_name' => 'テストビル',
         ]);
 
         $response = $this->get('/item/' . $item->id . '/order');

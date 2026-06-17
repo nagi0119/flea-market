@@ -58,7 +58,7 @@
                 <p class="order-address">
                     〒 {{ $orderAddress['postal_code'] }}<br>
 
-                    {{ $orderAddress['address'] }}
+                    {{ $orderAddress['address'] }}<br>
 
                     {{ $orderAddress['building_name'] }}
                 </p>
@@ -102,7 +102,6 @@
     paymentSelect.addEventListener('change', function() {
         paymentMethod.textContent =
             paymentSelect.options[paymentSelect.selectedIndex].text;
-        console.log(paymentSelect.value);
     });
 </script>
 @endsection
