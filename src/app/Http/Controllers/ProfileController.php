@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\Item;
-use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -22,7 +21,7 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         $user->update([
             'name' => $request->name,
@@ -42,7 +41,7 @@ class ProfileController extends Controller
             [
                 'postal_code' => $request->postal_code,
                 'address' => $request->address,
-                'building_name' => $request->building,
+                'building_name' => $request->building_name,
                 'image_path' => $imagePath,
             ]
         );
@@ -52,22 +51,29 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-
+        $user = auth()->user();
         $tab = request('tab');
 
-        if ($tab === 'buy') {
-            $items = Item::whereHas('order', function ($query) use ($user) {
-                $query->where('buyer_user_id', $user->id);
-            })->get();
-        } else {
-            $items = Item::where('user_id', $user->id)->get();
-        }
+        $items = $tab === 'buy'
+            ? $this->getPurchasedItems($user->id)
+            : $this->getExhibitedItems($user->id);
 
         return view('mypage.index', compact(
             'user',
             'items',
             'tab'
         ));
+    }
+
+    private function getPurchasedItems($userId)
+    {
+        return Item::whereHas('order', function ($query) use ($userId) {
+            $query->where('buyer_user_id', $userId);
+        })->get();
+    }
+
+    private function getExhibitedItems($userId)
+    {
+        return Item::where('user_id', $userId)->get();
     }
 }

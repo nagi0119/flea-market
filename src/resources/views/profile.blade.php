@@ -61,10 +61,10 @@
 
         <div class="profile-form__group">
             <label class="profile-form__label">建物名</label>
-            <input class="profile-form__input" type="text" name="building"
-                value="{{ old('building', auth()->user()->profile->building_name ?? '') }}">
+            <input class="profile-form__input" type="text" name="building_name"
+                value="{{ old('building_name', auth()->user()->profile->building_name ?? '') }}">
 
-            @error('building')
+            @error('building_name')
             <p style="color:red;">{{ $message }}</p>
             @enderror
         </div>

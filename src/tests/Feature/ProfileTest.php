@@ -29,7 +29,7 @@ class ProfileTest extends TestCase
             'name' => '変更後ユーザー',
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
-            'building' => 'テストビル',
+            'building_name' => 'テストビル',
         ]);
 
         $this->assertDatabaseHas('users', [

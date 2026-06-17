@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use App\Models\Comment;
 use App\Models\Favorite;
 
 class ItemController extends Controller
@@ -13,7 +12,7 @@ class ItemController extends Controller
         $isMylist = request('tab') === 'mylist';
         $keyword = request('keyword');
 
-        if (request('tab') === 'mylist') {
+        if ($isMylist) {
             if (!auth()->check()) {
                 $items = collect();
 

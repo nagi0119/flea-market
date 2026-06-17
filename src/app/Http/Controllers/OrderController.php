@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Order;
 use Stripe\Stripe;
+use App\Models\Profile;
 use Stripe\Checkout\Session;
 use App\Models\OrderAddress;
 use App\Http\Requests\PurchaseRequest;
@@ -27,7 +28,10 @@ class OrderController extends Controller
             'building_name' => $profile->building_name,
         ]);
 
-        return view('orders.create', compact('item', 'profile', 'orderAddress'));
+        return view('orders.create', compact(
+            'item',
+            'orderAddress'
+        ));
     }
 
     public function store(PurchaseRequest $request, $itemId)
@@ -77,7 +81,7 @@ class OrderController extends Controller
 
     public function updateAddress(AddressRequest $request, $itemId)
     {
-        auth()->user()->profile()->updateOrCreate(
+        Profile::updateOrCreate(
             ['user_id' => auth()->id()],
             [
                 'postal_code' => $request->postal_code,
