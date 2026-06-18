@@ -23,7 +23,7 @@ class AddressTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->post('/order/address/1', [
+        $this->post('/item/1/order/address', [
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
             'building_name' => 'テストビル',
@@ -62,7 +62,7 @@ class AddressTest extends TestCase
 
         $this->actingAs($user);
 
-        $this->post('/order/address/' . $item->id, [
+        $this->post('/item/' . $item->id . '/order/address', [
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
             'building_name' => 'テストビル',

@@ -26,10 +26,10 @@ Route::post('/item/{item}/comment', [CommentController::class, 'store'])
     ->middleware('auth');
 Route::get('/mypage', [ProfileController::class, 'index'])
     ->middleware(['auth', 'verified']);
-Route::get('/order/address/{item}', [OrderController::class, 'editAddress'])
+Route::get('/item/{item}/order/address', [OrderController::class, 'editAddress'])
     ->middleware('auth');
-Route::post('/order/address/{item}', [OrderController::class, 'updateAddress'])
-    ->middleware('auth');
+Route::post('/item/{item}/order/address', [OrderController::class, 'updateAddress'])
+    ->middleware('auth');;
 Route::get('/sell/create', [SellController::class, 'create'])
     ->middleware('auth');
 Route::post('/sell', [SellController::class, 'store'])

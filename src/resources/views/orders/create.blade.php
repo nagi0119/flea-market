@@ -50,9 +50,11 @@
                         配送先
                     </h1>
 
-                    <a href="/order/address/{{ $item->id }}" class="order-section__link">
+                    <a href="/item/{{ $item->id }}/order/address"
+                        class="order-section__link">
                         変更する
                     </a>
+
                 </div>
 
                 <p class="order-address">
