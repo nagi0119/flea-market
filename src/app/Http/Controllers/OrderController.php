@@ -42,11 +42,9 @@ class OrderController extends Controller
 
         $paymentMethod = $request->payment_method;
 
-        if ($paymentMethod == 1) {
-            $stripePaymentMethod = 'konbini';
-        } else {
-            $stripePaymentMethod = 'card';
-        }
+        $stripePaymentMethod = $paymentMethod == 1
+            ? 'konbini'
+            : 'card';
 
         $session = Session::create([
             'payment_method_types' => [$stripePaymentMethod],

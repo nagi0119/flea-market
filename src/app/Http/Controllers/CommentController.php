@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Comment;
-use App\Models\Favorite;
 use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller

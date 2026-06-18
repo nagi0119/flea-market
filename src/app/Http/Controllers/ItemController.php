@@ -12,38 +12,9 @@ class ItemController extends Controller
         $isMylist = request('tab') === 'mylist';
         $keyword = request('keyword');
 
-        if ($isMylist) {
-            if (!auth()->check()) {
-                $items = collect();
-
-                return view('items.index', compact(
-                    'items',
-                    'isMylist'
-                ));
-            }
-
-            $items = Item::whereHas('favorites', function ($query) {
-                $query->where('user_id', auth()->id());
-            })
-                ->when($keyword, function ($query, $keyword) {
-                    $query->where('name', 'like', '%' . $keyword . '%');
-                })
-                ->get();
-
-            return view('items.index', compact(
-                'items',
-                'isMylist'
-            ));
-        }
-
-        $items = Item::query()
-            ->when(auth()->check(), function ($query) {
-                $query->where('user_id', '!=', auth()->id());
-            })
-            ->when($keyword, function ($query, $keyword) {
-                $query->where('name', 'like', '%' . $keyword . '%');
-            })
-            ->get();
+        $items = $isMylist
+            ? $this->getMylistItems($keyword)
+            : $this->getRecommendedItems($keyword);
 
         return view('items.index', compact(
             'items',
@@ -55,13 +26,8 @@ class ItemController extends Controller
     {
         $item = Item::with(['categories', 'comments.user'])
             ->findOrFail($itemId);
-        $isLiked = false;
 
-        if (auth()->check()) {
-            $isLiked = Favorite::where('user_id', auth()->id())
-                ->where('item_id', $item->id)
-                ->exists();
-        }
+        $isLiked = $this->isLiked($item->id);
 
         $likesCount = Favorite::where('item_id', $item->id)->count();
 
@@ -73,5 +39,43 @@ class ItemController extends Controller
             'likesCount',
             'commentsCount'
         ));
+    }
+
+    private function getMylistItems($keyword)
+    {
+        if (!auth()->check()) {
+            return collect();
+        }
+
+        return Item::whereHas('favorites', function ($query) {
+            $query->where('user_id', auth()->id());
+        })
+            ->when($keyword, function ($query, $keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->get();
+    }
+
+    private function getRecommendedItems($keyword)
+    {
+        return Item::query()
+            ->when(auth()->check(), function ($query) {
+                $query->where('user_id', '!=', auth()->id());
+            })
+            ->when($keyword, function ($query, $keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->get();
+    }
+
+    private function isLiked($itemId)
+    {
+        if (!auth()->check()) {
+            return false;
+        }
+
+        return Favorite::where('user_id', auth()->id())
+            ->where('item_id', $itemId)
+            ->exists();
     }
 }
