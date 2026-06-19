@@ -21,6 +21,8 @@ Docker Desktop がインストールされていない場合は、公式サイ�
 
 ```bash
 git clone git@github.com:nagi0119/flea-market.git
+```
+```bash
 cd flea-market
 ``` 
 2. Docker Desktopアプリを立ち上げてください。
