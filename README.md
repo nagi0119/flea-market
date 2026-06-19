@@ -60,7 +60,7 @@ docker-compose up -d
 
 ### Laravel環境構築
 
-1. コンテナに入ってください。
+1. PHPコンテナに入ってください。
 ```bash
 docker-compose exec php bash
 ```
@@ -92,7 +92,7 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=test@example.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
-```bash
+```env
 STRIPE_KEY=your_stripe_key
 STRIPE_SECRET=your_stripe_secret
 ```
@@ -155,32 +155,36 @@ php artisan storage:link
 
 ### ユーザー1
 
-メールアドレス: aaa@example.com
-
-パスワード: 11111111
+メールアドレス / パスワード
+```text
+aaa@example.com / 11111111
+```
 
 ### ユーザー2
 
-メールアドレス: bbb@example.com
-
-パスワード: 11111111
+メールアドレス / パスワード
+```text
+bbb@example.com / 11111111
+```
 
 ### ユーザー3
 
-メールアドレス: ccc@example.com
-
-パスワード: 11111111
+メールアドレス / パスワード
+```text
+ccc@example.com / 11111111
+```
 
 ### ユーザー4
 
-メールアドレス: ddd@example.com
-
-パスワード: 11111111
+メールアドレス / パスワード
+```text
+ddd@example.com / 11111111
+```
 
 ## テスト
 
 テスト実行前に、MySQLコンテナ内でテスト用データベースを作成してください。
-以下のコマンドは php コンテナ内で実行してください。
+以下のコマンドを実行してください。
 
 ```bash
 docker-compose exec mysql bash
@@ -227,6 +231,11 @@ DB_PASSWORD=root
 ```
 
 設定後、テスト用のアプリケーションキーを作成します。
+PHPコンテナに入ってください。
+
+```bash
+docker-compose exec php bash
+```
 ```bash
 php artisan key:generate --env=testing
 ```
@@ -236,11 +245,11 @@ php artisan config:clear
 ```bash
 php artisan migrate --env=testing
 ```
+Unitテスト用のディレクトリを作成してください。
 ```bash
-mkdir -p src/tests/Unit
+mkdir -p tests/Unit
 ```
-
-テストを実行する
+テストを実行してください。
 ```bash
 php artisan test
 ```
@@ -252,7 +261,7 @@ php artisan test
 
 MailHogを使用
 
-認証メール確認
+認証メール確認URL
 
 http://localhost:8025
 
