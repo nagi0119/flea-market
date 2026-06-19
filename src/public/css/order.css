@@ -104,6 +104,8 @@
     border: none;
     border-radius: 3px;
     font-weight: bold;
+    cursor: pointer;
+
 }
 
 @media screen and (min-width: 1400px) and (max-width: 1540px) {

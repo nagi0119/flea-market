@@ -79,15 +79,6 @@ class OrderController extends Controller
 
     public function updateAddress(AddressRequest $request, $itemId)
     {
-        Profile::updateOrCreate(
-            ['user_id' => auth()->id()],
-            [
-                'postal_code' => $request->postal_code,
-                'address' => $request->address,
-                'building_name' => $request->building_name,
-            ]
-        );
-
         session([
             'order_address_' . $itemId => [
                 'postal_code' => $request->postal_code,

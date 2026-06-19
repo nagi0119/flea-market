@@ -13,22 +13,33 @@ class UsersTableSeeder extends Seeder
         User::insert([
             [
                 'id' => 1,
-                'name' => '田中太郎',
-                'email' => 'tanaka@example.com',
-                'password' => Hash::make('password'),
+                'name' => 'aaa',
+                'email' => 'aaa@example.com',
+                'password' => Hash::make('11111111'),
+                'email_verified_at' => now(),
             ],
             [
                 'id' => 2,
-                'name' => '佐藤花子',
-                'email' => 'sato@example.com',
-                'password' => Hash::make('password'),
+                'name' => 'bbb',
+                'email' => 'bbb@example.com',
+                'password' => Hash::make('11111111'),
+                'email_verified_at' => now(),
             ],
             [
                 'id' => 3,
-                'name' => '鈴木一郎',
-                'email' => 'suzuki@example.com',
-                'password' => Hash::make('password'),
+                'name' => 'ccc',
+                'email' => 'ccc@example.com',
+                'password' => Hash::make('11111111'),
+                'email_verified_at' => now(),
             ],
+            [
+                'id' => 4,
+                'name' => 'ddd',
+                'email' => 'ddd@example.com',
+                'password' => Hash::make('11111111'),
+                'email_verified_at' => now(),
+            ],
+
         ]);
     }
 }

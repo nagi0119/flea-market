@@ -8,7 +8,7 @@
 <div class="address-page">
     <h1 class="address-page__title">住所の変更</h1>
 
-    <form action="/order/address/{{ $item->id }}" method="post" class="address-form">
+    <form action="/item/{{ $item->id }}/order/address" method="post" class="address-form">
         @csrf
 
         <div class="address-form__group">

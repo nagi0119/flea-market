@@ -29,7 +29,7 @@ Route::get('/mypage', [ProfileController::class, 'index'])
 Route::get('/item/{item}/order/address', [OrderController::class, 'editAddress'])
     ->middleware('auth');
 Route::post('/item/{item}/order/address', [OrderController::class, 'updateAddress'])
-    ->middleware('auth');;
+    ->middleware('auth');
 Route::get('/sell/create', [SellController::class, 'create'])
     ->middleware('auth');
 Route::post('/sell', [SellController::class, 'store'])
