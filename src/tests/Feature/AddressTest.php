@@ -8,7 +8,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Item;
 
-
 class AddressTest extends TestCase
 {
     use RefreshDatabase;
@@ -21,27 +20,50 @@ class AddressTest extends TestCase
             'password' => bcrypt('password123'),
         ]);
 
+        $seller = User::create([
+            'name' => '出品者',
+            'email' => 'seller@example.com',
+            'password' => bcrypt('password123'),
+        ]);
+
+        $item = Item::create([
+            'user_id' => $seller->id,
+            'name' => '腕時計',
+            'item_condition' => 1,
+            'description' => 'テスト商品',
+            'price' => 1000,
+            'image_path' => 'test.jpg',
+            'is_sold' => false,
+        ]);
+
         $this->actingAs($user);
 
-        $this->post('/item/1/order/address', [
+        $response = $this->post('/item/' . $item->id . '/order/address', [
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
             'building_name' => 'テストビル',
         ]);
 
-        $this->assertDatabaseHas('profiles', [
-            'user_id' => $user->id,
+        $response->assertSessionHas('order_address_' . $item->id, [
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
             'building_name' => 'テストビル',
         ]);
     }
+
     public function test_変更した配送先住所が購入画面に反映される()
     {
         $user = User::create([
             'name' => 'テストユーザー',
             'email' => 'address2@example.com',
             'password' => bcrypt('password123'),
+        ]);
+
+        Profile::create([
+            'user_id' => $user->id,
+            'postal_code' => '111-1111',
+            'address' => '東京都新宿区',
+            'building_name' => 'プロフィールビル',
         ]);
 
         $seller = User::create([
