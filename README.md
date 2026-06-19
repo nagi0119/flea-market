@@ -31,6 +31,26 @@ Docker Desktop を起動し、正常に立ち上がっていることを確認�
 ```bash
 docker-compose up -d --build
 ```
+### Permission denied エラーが発生する場合
+
+- 以下のようなエラーが表示された場合
+
+The stream or file "/var/www/storage/logs/laravel.log"
+could not be opened in append mode:
+Failed to open stream: Permission denied
+
+ディレクトリ権限を変更してください。
+
+```bash
+sudo chmod -R 777 src/*
+```
+
+その後、再度コンテナを起動してください。
+
+```bash
+docker-compose up -d
+```
+
 
 ### 使用コンテナ
 
@@ -54,14 +74,15 @@ cp .env.example .env
 ```
 4. .envに以下の環境変数を追加してください。
 
-```bash
+```env
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
-
+```
+```env
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
@@ -70,7 +91,8 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=test@example.com
 MAIL_FROM_NAME="${APP_NAME}"
-
+```
+```bash
 STRIPE_KEY=your_stripe_key
 STRIPE_SECRET=your_stripe_secret
 ```
@@ -133,22 +155,37 @@ php artisan storage:link
 
 ### ユーザー1
 
-メールアドレス: aaa@aaa
+メールアドレス: aaa@example.com
 
 パスワード: 11111111
 
 ### ユーザー2
 
-メールアドレス: ccc@ccc
+メールアドレス: bbb@example.com
+
+パスワード: 11111111
+
+### ユーザー3
+
+メールアドレス: ccc@example.com
+
+パスワード: 11111111
+
+### ユーザー4
+
+メールアドレス: ddd@example.com
 
 パスワード: 11111111
 
 ## テスト
 
 テスト実行前に、MySQLコンテナ内でテスト用データベースを作成してください。
+以下のコマンドは php コンテナ内で実行してください。
 
 ```bash
 docker-compose exec mysql bash
+```
+```bash
 mysql -u root -p
 ```
 
@@ -159,12 +196,12 @@ CREATE DATABASE demo_test;
 
 作成できたらMySQLから抜けてください。
 ```bash
-exit;
+exit
 ```
 
 コンテナからも抜けてください。
 ```bash
-exit;
+exit
 ```
 
 .envをコピーして.env.testing を作成してください。
@@ -179,11 +216,11 @@ APP_ENV=test
 APP_KEY=
 APP_DEBUG=true
 APP_URL=http://localhost
-
+```
+```env
 DB_CONNECTION=mysql_test
 DB_HOST=mysql
 DB_PORT=3306
-
 DB_DATABASE=demo_test
 DB_USERNAME=root
 DB_PASSWORD=root
@@ -192,9 +229,17 @@ DB_PASSWORD=root
 設定後、テスト用のアプリケーションキーを作成します。
 ```bash
 php artisan key:generate --env=testing
+```
+```bash
 php artisan config:clear
+```
+```bash
 php artisan migrate --env=testing
 ```
+```bash
+mkdir -p src/tests/Unit
+```
+
 テストを実行する
 ```bash
 php artisan test
@@ -222,27 +267,28 @@ Stripeのテストキーを取得し、
 STRIPE_KEY=your_stripe_key
 STRIPE_SECRET=your_stripe_secret
 ```
+### Stripe決済テスト
 
-## トラブルシューティング
+カード支払いをテストする場合は、Stripeのテストカードを使用してください。
 
-### Permission denied エラーが発生する場合
-
-- 以下のようなエラーが表示された場合
-
-The stream or file "/var/www/storage/logs/laravel.log"
-could not be opened in append mode:
-Failed to open stream: Permission denied
-
-ディレクトリ権限を変更してください。
-
-```bash
-sudo chmod -R 777 src/*
+カード番号
+```text
+4242 4242 4242 4242
 ```
 
-その後、再度コンテナを起動してください。
+有効期限
+```text
+12/34
+```
 
-```bash
-docker-compose up -d
+CVC
+```text
+123
+```
+
+郵便番号
+```text
+12345
 ```
 
 ## 補足
