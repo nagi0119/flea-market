@@ -159,30 +159,46 @@ php artisan storage:link
 
 ### ユーザー1
 
-メールアドレス / パスワード
+メールアドレス
 ```text
-aaa@example.com / 11111111
+aaa@example.com
+```
+パスワード
+```text
+11111111
 ```
 
 ### ユーザー2
 
-メールアドレス / パスワード
+メールアドレス
 ```text
-bbb@example.com / 11111111
+bbb@example.com
+```
+パスワード
+```text
+11111111
 ```
 
 ### ユーザー3
 
-メールアドレス / パスワード
+メールアドレス
 ```text
-ccc@example.com / 11111111
+ccc@example.com
+```
+パスワード
+```text
+11111111
 ```
 
 ### ユーザー4
 
-メールアドレス / パスワード
+メールアドレス
 ```text
-ddd@example.com / 11111111
+ddd@example.com
+```
+パスワード
+```text
+11111111
 ```
 
 ## テスト
