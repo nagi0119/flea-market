@@ -33,6 +33,7 @@ Docker Desktop を起動し、正常に立ち上がっていることを確認�
 ```bash
 docker-compose up -d --build
 ```
+
 ### Permission denied エラーが発生する場合
 
 - 以下のようなエラーが表示された場合
@@ -142,6 +143,7 @@ php artisan storage:link
 - ログイン
 - ログアウト
 - メール認証
+- 初回ログイン時プロフィール設定
 - 商品一覧
 - 商品検索
 - 商品詳細
@@ -191,8 +193,17 @@ ddd@example.com / 11111111
 ```bash
 docker-compose exec mysql bash
 ```
+
+MySQLにログインします。
+
 ```bash
 mysql -u root -p
+```
+
+パスワードを求められた場合は以下を入力してください。
+
+```text
+root
 ```
 
 MySQLにログイン後、以下を実行してください。
@@ -232,26 +243,40 @@ DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-設定後、テスト用のアプリケーションキーを作成します。
-PHPコンテナに入ってください。
+設定後、テスト環境用のアプリケーションキーを作成し、キャッシュをクリアした後、テスト用データベースへマイグレーションを実行してください。
+
+PHPコンテナに入ります。
 
 ```bash
 docker-compose exec php bash
 ```
+
+テスト環境用のアプリケーションキーを作成します。
+
 ```bash
 php artisan key:generate --env=testing
 ```
+
+設定キャッシュを削除します。
+
 ```bash
 php artisan config:clear
 ```
+
+テスト用データベースへマイグレーションを実行します。
+
 ```bash
 php artisan migrate --env=testing
 ```
+
 Unitテスト用のディレクトリを作成してください。
+
 ```bash
 mkdir -p tests/Unit
 ```
+
 テストを実行してください。
+
 ```bash
 php artisan test
 ```
@@ -261,9 +286,9 @@ php artisan test
 
 ## メール認証
 
-MailHogを使用
+MailHogを使用しています。
 
-認証メール確認URL
+会員登録後に送信される認証メールは、以下のURLから確認できます。
 
 http://localhost:8025
 
@@ -282,6 +307,11 @@ STRIPE_SECRET=your_stripe_secret
 
 カード支払いをテストする場合は、Stripeのテストカードを使用してください。
 
+メールアドレス
+```text
+aaa@example.com
+```
+
 カード番号
 ```text
 4242 4242 4242 4242
@@ -295,11 +325,6 @@ STRIPE_SECRET=your_stripe_secret
 CVC
 ```text
 123
-```
-
-郵便番号
-```text
-12345
 ```
 
 ## 補足
