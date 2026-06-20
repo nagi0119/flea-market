@@ -204,7 +204,8 @@ ddd@example.com
 ## テスト
 
 テスト実行前に、MySQLコンテナ内でテスト用データベースを作成してください。
-以下のコマンドを実行してください。
+
+まず、MySQLコンテナに入ります。
 
 ```bash
 docker-compose exec mysql bash
