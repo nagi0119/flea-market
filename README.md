@@ -47,6 +47,7 @@ Failed to open stream: Permission denied
 ```bash
 sudo chmod -R 777 src/*
 ```
+sudo コマンド実行時にパスワードを求められた場合は、ご自身のOSログインパスワードを入力してください。
 
 その後、再度コンテナを起動してください。
 
